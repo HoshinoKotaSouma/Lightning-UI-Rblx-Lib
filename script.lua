@@ -1952,7 +1952,7 @@ local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hoshin
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 local Window = Fluent:CreateWindow({
-    Title = " Yue HUB [Beta Version]" .. Fluent.Version,
+    Title = " Sybau [Beta Version]" .. Fluent.Version,
     SubTitle = "by Yue1lit",
     Search = true, -- optional and default true
     Icon = "rbxassetid://83022373580647", -- optional
@@ -2035,11 +2035,11 @@ local Tabs = {
     })
 }
 local Minimizer = Fluent:CreateMinimizer({
-  Icon = "rbxassetid://93263979597274", -- you can put AssetId
+  Icon = "rbxassetid://78469182446595", -- you can put AssetId
   Size = UDim2.fromOffset(44, 44),
   Position = UDim2.new(0, 320, 0, 24),
   Acrylic = true,
-  Corner = 10,
+  Corner = 22,
   Transparency = 1,
   Draggable = true,
   Visible = true -- make minimizer visible on pc (DEFAULT TRUE), you can edit any setting in Minimizer variable. example: Minimizer.Visible = false
