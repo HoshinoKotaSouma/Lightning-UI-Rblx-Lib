@@ -4522,7 +4522,7 @@ Components.TitleBar = (function()
 	return function(Config)
 		local TitleBar = {}
 
-		-- Hàm tạo nút tùy chỉnh (Mac Style - Có ký tự ẩn)
+		-- Hàm tạo nút tùy chỉnh (Phong cách macOS xịn)
 		local function CustomBarButton(Props)
 			local Button = {}
 			
@@ -4530,7 +4530,7 @@ Components.TitleBar = (function()
 				Parent = Props.Parent,
 				Size = UDim2.fromOffset(12, 12), -- Kích thước tròn 12px
 				Position = Props.Position,
-				AnchorPoint = Vector2.new(1, 0.5), -- [QUAN TRỌNG] Neo vào bên phải
+				AnchorPoint = Vector2.new(0, 0.5), -- Neo bên trái
 				BackgroundColor3 = Props.Color,
 				BackgroundTransparency = 0,
 				Text = "",
@@ -4538,7 +4538,7 @@ Components.TitleBar = (function()
 				Name = Props.Name,
 				ClipsDescendants = true
 			}, {
-				New("UICorner", { CornerRadius = UDim.new(1, 0) }), -- Bo tròn
+				New("UICorner", { CornerRadius = UDim.new(1, 0) }), -- Bo tròn thành hình tròn
 				
 				-- Ký tự bên trong (x, -, +)
 				New("TextLabel", {
@@ -4547,17 +4547,17 @@ Components.TitleBar = (function()
 					Parent = Props.Parent,
 					Size = UDim2.fromScale(1, 1),
 					BackgroundTransparency = 1,
-					TextColor3 = Color3.fromRGB(50, 50, 50), -- Chữ màu đen mờ
+					TextColor3 = Color3.fromRGB(50, 50, 50), -- Màu chữ đen mờ
 					TextTransparency = 0.5,
 					TextSize = 9,
 					FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
-					Visible = false -- Mặc định ẩn, di chuột mới hiện
+					Visible = false -- Mặc định ẩn
 				})
 			})
 			
 			local Symbol = Button.Frame:FindFirstChild("Symbol")
 
-			-- Hiệu ứng Hover
+			-- Hiệu ứng Hover: Di chuột vào mới hiện ký tự
 			AddSignal(Button.Frame.MouseEnter, function() 
 				Button.Frame.Transparency = 0.2 
 				if Symbol then Symbol.Visible = true end
@@ -4576,10 +4576,10 @@ Components.TitleBar = (function()
 			BackgroundTransparency = 1,
 			Parent = Config.Parent,
 		}, {
-			-- [SỬA LẠI] Tiêu đề nằm bên trái (12px) vì nút đã sang phải rồi
+			-- Phần Tiêu Đề (Title) - Dời sang phải 80px
 			New("Frame", {
 				Size = UDim2.new(1, -80, 1, 0),
-				Position = UDim2.new(0, 12, 0, 0), 
+				Position = UDim2.new(0, 80, 0, 0), 
 				BackgroundTransparency = 1,
 			}, {
 				New("UIListLayout", {
@@ -4631,14 +4631,13 @@ Components.TitleBar = (function()
 			}),
 		})
 
-		-- === KHỞI TẠO NÚT (GÓC PHẢI - STYLE MAC) ===
-		-- Thứ tự hiển thị từ trái qua phải: [Đỏ] [Vàng] [Xanh] | (Lề phải)
+		-- === CÁC NÚT ĐIỀU KHIỂN (MAC OS) ===
 		
-		-- 1. Close (Đỏ - Trái cùng của cụm)
+		-- 1. Close (Đỏ) - Ngoài cùng bên trái
 		TitleBar.CloseButton = CustomBarButton({
 			Name = "Close",
 			Parent = TitleBar.Frame,
-			Position = UDim2.new(1, -50, 0.5, 0), -- Cách lề phải 50px
+			Position = UDim2.new(0, 15, 0.5, 0),
 			Color = Color3.fromRGB(255, 95, 87),
 			Symbol = "×",
 			Callback = function()
@@ -4653,11 +4652,11 @@ Components.TitleBar = (function()
 			end,
 		})
 
-		-- 2. Minimize (Vàng - Ở giữa)
+		-- 2. Minimize (Vàng) - Kế bên nút đỏ
 		TitleBar.MinButton = CustomBarButton({
 			Name = "Min",
 			Parent = TitleBar.Frame,
-			Position = UDim2.new(1, -30, 0.5, 0), -- Cách lề phải 30px
+			Position = UDim2.new(0, 35, 0.5, 0),
 			Color = Color3.fromRGB(255, 189, 46),
 			Symbol = "−",
 			Callback = function()
@@ -4665,11 +4664,11 @@ Components.TitleBar = (function()
 			end,
 		})
 
-		-- 3. Maximize (Xanh - Phải cùng)
+		-- 3. Maximize (Xanh) - Kế bên nút vàng
 		TitleBar.MaxButton = CustomBarButton({
 			Name = "Max",
 			Parent = TitleBar.Frame,
-			Position = UDim2.new(1, -10, 0.5, 0), -- Cách lề phải 10px
+			Position = UDim2.new(0, 55, 0.5, 0),
 			Color = Color3.fromRGB(39, 201, 63),
 			Symbol = "+",
 			Callback = function()
