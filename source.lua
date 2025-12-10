@@ -59,25 +59,45 @@ local Themes = {
         
         -- [NHẬP LIỆU]
         Keybind = Color3.fromRGB(255, 255, 255),
-        Input = Color3.fromRGB(50, 40, 80),
-        InputFocused = Color3.fromRGB(35, 20, 50),
-        InputIndicator = Color3.fromRGB(255, 120, 255), -- Chỉ báo màu hồng
+       Nebula = {
+        Name = "Nebula",
+        -- Màu tím hồng Neon làm điểm nhấn (giữ nguyên mood)
+        Accent = Color3.fromRGB(255, 120, 255), 
         
-        -- [HỘP THOẠI DIALOG]
-        Dialog = Color3.fromRGB(50, 40, 80),
-        DialogHolder = Color3.fromRGB(35, 20, 50),
-        DialogHolderLine = Color3.fromRGB(120, 220, 255),
-        DialogButton = Color3.fromRGB(60, 45, 90),
-        DialogButtonBorder = Color3.fromRGB(255, 120, 255),
-        DialogBorder = Color3.fromRGB(120, 220, 255),
-        DialogInput = Color3.fromRGB(60, 45, 90),
-        DialogInputLine = Color3.fromRGB(255, 120, 255),
+        -- [QUAN TRỌNG] Nền kính tối màu nhưng rất trong (Transparency cao)
+        AcrylicMain = Color3.fromRGB(20, 20, 35), 
         
-        -- [CHỮ]
+        -- Viền trắng sáng (Tạo cảm giác tấm kính cắt)
+        AcrylicBorder = Color3.fromRGB(200, 200, 255), 
+        AcrylicGradient = ColorSequence.new(Color3.fromRGB(20, 20, 35), Color3.fromRGB(10, 10, 20)),
+        AcrylicNoise = 0.9, -- Giảm nhiễu hạt để kính trông mịn hơn
+        
+        -- Thanh tiêu đề
+        TitleBarLine = Color3.fromRGB(255, 255, 255),
+        Tab = Color3.fromRGB(255, 255, 255),
+        
+        -- [QUAN TRỌNG] Phần tử bên trong (Nút bấm, khung)
+        Element = Color3.fromRGB(255, 255, 255), -- Nền trắng
+        ElementBorder = Color3.fromRGB(255, 255, 255), -- Viền trắng
+        InElementBorder = Color3.fromRGB(100, 180, 255),
+        
+        -- Độ trong suốt của nút bấm (0.9 là gần như trong suốt hoàn toàn)
+        ElementTransparency = 0.9, 
+        
+        -- Các màu phụ trợ khác
+        ToggleSlider = Color3.fromRGB(200, 200, 255),
+        ToggleToggled = Color3.fromRGB(255, 120, 255),
+        SliderRail = Color3.fromRGB(200, 200, 255),
+        DropdownFrame = Color3.fromRGB(30, 30, 45),
+        DropdownHolder = Color3.fromRGB(20, 20, 35),
+        DropdownBorder = Color3.fromRGB(255, 255, 255),
+        DropdownOption = Color3.fromRGB(240, 240, 255),
+        
+        -- Chữ
         Text = Color3.fromRGB(255, 255, 255),
-        SubText = Color3.fromRGB(200, 220, 255), -- Chữ phụ hơi xanh
-        Hover = Color3.fromRGB(80, 70, 120),
-        HoverChange = 0.1,
+        SubText = Color3.fromRGB(220, 220, 255),
+        Hover = Color3.fromRGB(255, 255, 255),
+        HoverChange = 0.2,
     }
 }
 
@@ -8893,7 +8913,7 @@ Library.CreateWindow = function(self, Config)
     if Config.BackgroundImageTransparency == nil then Config.BackgroundImageTransparency = 0 end
 
     -- [2] ÉP KÍCH THƯỚC TỶ LỆ 16:9 (Để ảnh Full HD không bị méo)
-    if not Config.Size then Config.Size = UDim2.fromOffset(854, 480) end
+    if not Config.Size then Config.Size = UDim2.fromOffset(850, 480) end
     if not Config.TabWidth then Config.TabWidth = 180 end
 
     assert(Config.Title, "Window - Missing Title")
