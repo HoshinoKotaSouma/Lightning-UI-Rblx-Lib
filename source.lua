@@ -23,350 +23,66 @@ local RenderStepped = RunService.RenderStepped
 local ProtectGui = protectgui or (syn and syn.protect_gui) or function() end
 
 local Themes = {
-	Names = {
-		-- Default
-		"Dark", "Darker", "AMOLED", "Light", "Balloon", "SoftCream", "Aqua", 
-		"Amethyst", "Rose", "Midnight", "Forest", "Sunset", "Ocean", 
-		"Emerald", "Sapphire", "Cloud", "Grape", "Bloody", "Arctic",
-		-- Converted
-		"Starlight", "Hollywood Dark", "Hollywood Light", "Orca", "Glacier", 
-		"Pacific", "Neo", "Neo (Dark)", "Crimson", "Nebula", "Evergreen", 
-		"Ubuntu", "Luna", "Tokyo Night", "OperaGX", "BBot", "Hollywood Fluent",
-		-- Special
-		"Image", "Rainbow"
-	},
+    Names = { "Nebula" }, -- Danh sách chỉ còn 1 theme duy nhất
 
-	-- [[ 1. THEME GỐC FLUENT (Đã Mod lại nút Dialog & Fix màu chữ) ]] --
-
-	Dark = {
-		Name = "Dark",
-		Accent = Color3.fromRGB(96, 205, 255),
-		AcrylicMain = Color3.fromRGB(25, 25, 25),
-		AcrylicBorder = Color3.fromRGB(60, 60, 60),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(25, 25, 25), Color3.fromRGB(25, 25, 25)),
-		AcrylicNoise = 0.9,
-		TitleBarLine = Color3.fromRGB(60, 60, 60),
-		Tab = Color3.fromRGB(255, 255, 255),
-		Element = Color3.fromRGB(35, 35, 35),
-		ElementBorder = Color3.fromRGB(20, 20, 20),
-		InElementBorder = Color3.fromRGB(60, 60, 60),
-		ElementTransparency = 0.9,
-		ToggleSlider = Color3.fromRGB(60, 60, 60),
-		ToggleToggled = Color3.fromRGB(255, 255, 255),
-		SliderRail = Color3.fromRGB(60, 60, 60),
-		DropdownFrame = Color3.fromRGB(45, 45, 45),
-		DropdownHolder = Color3.fromRGB(35, 35, 35),
-		DropdownBorder = Color3.fromRGB(20, 20, 20),
-		DropdownOption = Color3.fromRGB(255, 255, 255),
-		Keybind = Color3.fromRGB(255, 255, 255),
-		Input = Color3.fromRGB(45, 45, 45),
-		InputFocused = Color3.fromRGB(20, 20, 20),
-		InputIndicator = Color3.fromRGB(200, 200, 200),
-		Dialog = Color3.fromRGB(35, 35, 35),
-		DialogHolder = Color3.fromRGB(25, 25, 25),
-		DialogHolderLine = Color3.fromRGB(60, 60, 60),
-		DialogButton = Color3.fromRGB(96, 205, 255), -- [FIX] Màu nút theo Accent
-		DialogButtonBorder = Color3.fromRGB(96, 205, 255),
-		DialogBorder = Color3.fromRGB(60, 60, 60),
-		DialogInput = Color3.fromRGB(45, 45, 45),
-		DialogInputLine = Color3.fromRGB(96, 205, 255),
-		Text = Color3.fromRGB(255, 255, 255),
-		SubText = Color3.fromRGB(170, 170, 170),
-		Hover = Color3.fromRGB(60, 60, 60),
-		HoverChange = 0.1,
-	},
-	Darker = {
-		Name = "Darker",
-		Accent = Color3.fromRGB(56, 109, 223),
-		AcrylicMain = Color3.fromRGB(15, 15, 15),
-		AcrylicBorder = Color3.fromRGB(40, 40, 40),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(15, 15, 15), Color3.fromRGB(15, 15, 15)),
-		AcrylicNoise = 0.94,
-		TitleBarLine = Color3.fromRGB(40, 40, 40),
-		Tab = Color3.fromRGB(200, 200, 200),
-		Element = Color3.fromRGB(25, 25, 25),
-		ElementBorder = Color3.fromRGB(10, 10, 10),
-		InElementBorder = Color3.fromRGB(35, 35, 35),
-		ElementTransparency = 0.9,
-		ToggleSlider = Color3.fromRGB(35, 35, 35),
-		ToggleToggled = Color3.fromRGB(200, 200, 200),
-		SliderRail = Color3.fromRGB(35, 35, 35),
-		DropdownFrame = Color3.fromRGB(30, 30, 30),
-		DropdownHolder = Color3.fromRGB(20, 20, 20),
-		DropdownBorder = Color3.fromRGB(10, 10, 10),
-		DropdownOption = Color3.fromRGB(200, 200, 200),
-		Keybind = Color3.fromRGB(200, 200, 200),
-		Input = Color3.fromRGB(30, 30, 30),
-		InputFocused = Color3.fromRGB(10, 10, 10),
-		InputIndicator = Color3.fromRGB(150, 150, 150),
-		Dialog = Color3.fromRGB(25, 25, 25),
-		DialogHolder = Color3.fromRGB(20, 20, 20),
-		DialogHolderLine = Color3.fromRGB(40, 40, 40),
-		DialogButton = Color3.fromRGB(56, 109, 223), -- [FIX]
-		DialogButtonBorder = Color3.fromRGB(56, 109, 223),
-		DialogBorder = Color3.fromRGB(30, 30, 30),
-		DialogInput = Color3.fromRGB(30, 30, 30),
-		DialogInputLine = Color3.fromRGB(56, 109, 223),
-		Text = Color3.fromRGB(220, 220, 220),
-		SubText = Color3.fromRGB(140, 140, 140),
-		Hover = Color3.fromRGB(35, 35, 35),
-		HoverChange = 0.1,
-	},
-	Light = {
-		Name = "Light",
-		Accent = Color3.fromRGB(0, 103, 192),
-		AcrylicMain = Color3.fromRGB(240, 240, 240),
-		AcrylicBorder = Color3.fromRGB(200, 200, 200),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(245, 245, 245), Color3.fromRGB(245, 245, 245)),
-		AcrylicNoise = 0.96,
-		TitleBarLine = Color3.fromRGB(200, 200, 200),
-		Tab = Color3.fromRGB(50, 50, 50), -- [FIX] Chữ tối màu
-		Element = Color3.fromRGB(255, 255, 255),
-		ElementBorder = Color3.fromRGB(200, 200, 200),
-		InElementBorder = Color3.fromRGB(220, 220, 220),
-		ElementTransparency = 0.9,
-		ToggleSlider = Color3.fromRGB(220, 220, 220),
-		ToggleToggled = Color3.fromRGB(255, 255, 255),
-		SliderRail = Color3.fromRGB(220, 220, 220),
-		DropdownFrame = Color3.fromRGB(250, 250, 250),
-		DropdownHolder = Color3.fromRGB(240, 240, 240),
-		DropdownBorder = Color3.fromRGB(200, 200, 200),
-		DropdownOption = Color3.fromRGB(50, 50, 50),
-		Keybind = Color3.fromRGB(50, 50, 50),
-		Input = Color3.fromRGB(250, 250, 250),
-		InputFocused = Color3.fromRGB(240, 240, 240),
-		InputIndicator = Color3.fromRGB(100, 100, 100),
-		Dialog = Color3.fromRGB(255, 255, 255),
-		DialogHolder = Color3.fromRGB(240, 240, 240),
-		DialogHolderLine = Color3.fromRGB(200, 200, 200),
-		DialogButton = Color3.fromRGB(0, 103, 192), -- [FIX]
-		DialogButtonBorder = Color3.fromRGB(0, 103, 192),
-		DialogBorder = Color3.fromRGB(200, 200, 200),
-		DialogInput = Color3.fromRGB(250, 250, 250),
-		DialogInputLine = Color3.fromRGB(0, 103, 192),
-		Text = Color3.fromRGB(0, 0, 0), -- [FIX] Chữ đen
-		SubText = Color3.fromRGB(80, 80, 80),
-		Hover = Color3.fromRGB(230, 230, 230),
-		HoverChange = 0.1,
-	},
-	-- [[ Các theme gốc khác mình giữ nguyên cấu trúc nhưng fix DialogButton theo Accent ]]
-	AMOLED = { Name = "AMOLED", Accent = Color3.fromRGB(255, 255, 255), AcrylicMain = Color3.fromRGB(0, 0, 0), AcrylicBorder = Color3.fromRGB(20, 20, 20), AcrylicGradient = ColorSequence.new(Color3.fromRGB(0,0,0), Color3.fromRGB(0,0,0)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(25, 25, 25), Tab = Color3.fromRGB(200, 200, 200), Element = Color3.fromRGB(15, 15, 15), ElementBorder = Color3.fromRGB(0, 0, 0), InElementBorder = Color3.fromRGB(40, 40, 40), ElementTransparency = 1, ToggleSlider = Color3.fromRGB(40, 40, 40), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(40, 40, 40), DropdownFrame = Color3.fromRGB(20, 20, 20), DropdownHolder = Color3.fromRGB(0, 0, 0), DropdownBorder = Color3.fromRGB(0, 0, 0), DropdownOption = Color3.fromRGB(200, 200, 200), Keybind = Color3.fromRGB(200, 200, 200), Input = Color3.fromRGB(20, 20, 20), InputFocused = Color3.fromRGB(0, 0, 0), InputIndicator = Color3.fromRGB(150, 150, 150), Dialog = Color3.fromRGB(10, 10, 10), DialogHolder = Color3.fromRGB(0, 0, 0), DialogHolderLine = Color3.fromRGB(20, 20, 20), DialogButton = Color3.fromRGB(255, 255, 255), DialogButtonBorder = Color3.fromRGB(255, 255, 255), DialogBorder = Color3.fromRGB(20, 20, 20), DialogInput = Color3.fromRGB(20, 20, 20), DialogInputLine = Color3.fromRGB(255, 255, 255), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(170, 170, 170), Hover = Color3.fromRGB(25, 25, 25), HoverChange = 0.1 },
-	Balloon = { Name = "Balloon", Accent = Color3.fromRGB(100, 170, 255), AcrylicMain = Color3.fromRGB(189, 224, 255), AcrylicBorder = Color3.fromRGB(160, 227, 255), AcrylicGradient = ColorSequence.new(Color3.fromRGB(240, 250, 255), Color3.fromRGB(210, 235, 250)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(150, 200, 255), Tab = Color3.fromRGB(100, 150, 255), Element = Color3.fromRGB(160, 200, 255), ElementBorder = Color3.fromRGB(130, 170, 230), InElementBorder = Color3.fromRGB(120, 174, 240), ElementTransparency = 0.8, ToggleSlider = Color3.fromRGB(93, 163, 255), ToggleToggled = Color3.fromRGB(60, 112, 180), SliderRail = Color3.fromRGB(170, 220, 255), DropdownFrame = Color3.fromRGB(175, 235, 255), DropdownHolder = Color3.fromRGB(200, 220, 240), DropdownBorder = Color3.fromRGB(130, 170, 230), DropdownOption = Color3.fromRGB(100, 150, 255), Keybind = Color3.fromRGB(100, 150, 255), Input = Color3.fromRGB(170, 220, 255), InputFocused = Color3.fromRGB(75, 95, 140), InputIndicator = Color3.fromRGB(100, 170, 255), Dialog = Color3.fromRGB(189, 230, 255), DialogHolder = Color3.fromRGB(201, 239, 255), DialogHolderLine = Color3.fromRGB(197, 236, 250), DialogButton = Color3.fromRGB(100, 170, 255), DialogButtonBorder = Color3.fromRGB(100, 170, 255), DialogBorder = Color3.fromRGB(175, 220, 255), DialogInput = Color3.fromRGB(160, 200, 255), DialogInputLine = Color3.fromRGB(100, 170, 255), Text = Color3.fromRGB(30, 30, 30), SubText = Color3.fromRGB(90, 90, 90), Hover = Color3.fromRGB(170, 220, 255), HoverChange = 0.03 },
-	SoftCream = { Name = "SoftCream", Accent = Color3.fromRGB(206, 163, 90), AcrylicMain = Color3.fromRGB(255, 245, 220), AcrylicBorder = Color3.fromRGB(255, 230, 200), AcrylicGradient = ColorSequence.new(Color3.fromRGB(255, 245, 220), Color3.fromRGB(255, 235, 210)), AcrylicNoise = 0.93, TitleBarLine = Color3.fromRGB(255, 220, 190), Tab = Color3.fromRGB(199, 165, 112), Element = Color3.fromRGB(255, 216, 161), ElementBorder = Color3.fromRGB(234, 193, 111), InElementBorder = Color3.fromRGB(255, 212, 143), ElementTransparency = 0.8, ToggleSlider = Color3.fromRGB(214, 175, 97), ToggleToggled = Color3.fromRGB(200, 160, 100), SliderRail = Color3.fromRGB(255, 220, 190), DropdownFrame = Color3.fromRGB(255, 228, 164), DropdownHolder = Color3.fromRGB(250, 240, 225), DropdownBorder = Color3.fromRGB(255, 210, 180), DropdownOption = Color3.fromRGB(199, 165, 112), Keybind = Color3.fromRGB(199, 165, 112), Input = Color3.fromRGB(255, 220, 190), InputFocused = Color3.fromRGB(180, 140, 80), InputIndicator = Color3.fromRGB(255, 236, 158), Dialog = Color3.fromRGB(255, 255, 240), DialogHolder = Color3.fromRGB(255, 245, 220), DialogHolderLine = Color3.fromRGB(255, 240, 210), DialogButton = Color3.fromRGB(206, 163, 90), DialogButtonBorder = Color3.fromRGB(206, 163, 90), DialogBorder = Color3.fromRGB(255, 220, 190), DialogInput = Color3.fromRGB(255, 210, 180), DialogInputLine = Color3.fromRGB(206, 163, 90), Text = Color3.fromRGB(30, 30, 30), SubText = Color3.fromRGB(90, 90, 90), Hover = Color3.fromRGB(255, 220, 190), HoverChange = 0.03 },
-	-- ... (Các theme mặc định khác mình đã tối ưu nhưng không liệt kê hết để tránh quá dài, dưới đây là phần quan trọng nhất)
-
-	-- [[ 2. THEME CHUYỂN TỪ STARLIGHT (Đã Fix màu chữ & Dialog) ]] --
-
-	Starlight = {
-		Name = "Starlight",
-		Accent = Color3.fromRGB(230, 186, 251),
-		AcrylicMain = Color3.fromRGB(23, 25, 29),
-		AcrylicBorder = Color3.fromRGB(17, 19, 22),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(23, 25, 29), Color3.fromRGB(27, 29, 33)),
-		AcrylicNoise = 1,
-		TitleBarLine = Color3.fromRGB(117, 128, 149),
-		Tab = Color3.fromRGB(255, 255, 255),
-		Element = Color3.fromRGB(33, 36, 42),
-		ElementBorder = Color3.fromRGB(17, 19, 22),
-		InElementBorder = Color3.fromRGB(24, 25, 30),
-		ElementTransparency = 0.9,
-		ToggleSlider = Color3.fromRGB(60, 65, 75),
-		ToggleToggled = Color3.fromRGB(255, 255, 255),
-		SliderRail = Color3.fromRGB(23, 25, 29),
-		DropdownFrame = Color3.fromRGB(33, 36, 42),
-		DropdownHolder = Color3.fromRGB(27, 29, 33),
-		DropdownBorder = Color3.fromRGB(17, 19, 22),
-		DropdownOption = Color3.fromRGB(255, 255, 255),
-		Keybind = Color3.fromRGB(255, 255, 255),
-		Input = Color3.fromRGB(33, 34, 38),
-		InputFocused = Color3.fromRGB(23, 25, 29),
-		InputIndicator = Color3.fromRGB(255, 255, 255),
-		Dialog = Color3.fromRGB(33, 36, 42),
-		DialogHolder = Color3.fromRGB(27, 29, 33),
-		DialogHolderLine = Color3.fromRGB(117, 128, 149),
-		DialogButton = Color3.fromRGB(230, 186, 251), -- [FIX] Accent
-		DialogButtonBorder = Color3.fromRGB(230, 186, 251),
-		DialogBorder = Color3.fromRGB(17, 19, 22),
-		DialogInput = Color3.fromRGB(27, 29, 33),
-		DialogInputLine = Color3.fromRGB(117, 128, 149),
-		Text = Color3.fromRGB(255, 255, 255),
-		SubText = Color3.fromRGB(165, 165, 165),
-		Hover = Color3.fromRGB(60, 60, 70),
-		HoverChange = 0.1
-	},
-	["Hollywood Dark"] = {
-		Name = "Hollywood Dark",
-		Accent = Color3.fromRGB(230, 186, 251),
-		AcrylicMain = Color3.fromRGB(10, 10, 10),
-		AcrylicBorder = Color3.fromRGB(30, 30, 30),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(10, 10, 10), Color3.fromRGB(15, 15, 15)),
-		AcrylicNoise = 1,
-		TitleBarLine = Color3.fromRGB(100, 100, 100),
-		Tab = Color3.fromRGB(255, 255, 255),
-		Element = Color3.fromRGB(20, 20, 20),
-		ElementBorder = Color3.fromRGB(40, 40, 40),
-		InElementBorder = Color3.fromRGB(30, 30, 30),
-		ElementTransparency = 0.9,
-		ToggleSlider = Color3.fromRGB(40, 40, 40),
-		ToggleToggled = Color3.fromRGB(255, 255, 255),
-		SliderRail = Color3.fromRGB(10, 10, 10),
-		DropdownFrame = Color3.fromRGB(20, 20, 20),
-		DropdownHolder = Color3.fromRGB(15, 15, 15),
-		DropdownBorder = Color3.fromRGB(40, 40, 40),
-		DropdownOption = Color3.fromRGB(255, 255, 255),
-		Keybind = Color3.fromRGB(255, 255, 255),
-		Input = Color3.fromRGB(20, 20, 20),
-		InputFocused = Color3.fromRGB(10, 10, 10),
-		InputIndicator = Color3.fromRGB(255, 255, 255),
-		Dialog = Color3.fromRGB(20, 20, 20),
-		DialogHolder = Color3.fromRGB(15, 15, 15),
-		DialogHolderLine = Color3.fromRGB(100, 100, 100),
-		DialogButton = Color3.fromRGB(230, 186, 251), -- [FIX]
-		DialogButtonBorder = Color3.fromRGB(230, 186, 251),
-		DialogBorder = Color3.fromRGB(40, 40, 40),
-		DialogInput = Color3.fromRGB(15, 15, 15),
-		DialogInputLine = Color3.fromRGB(230, 186, 251),
-		Text = Color3.fromRGB(255, 255, 255),
-		SubText = Color3.fromRGB(150, 150, 150),
-		Hover = Color3.fromRGB(40, 40, 40),
-		HoverChange = 0.1
-	},
-	["Hollywood Light"] = {
-		Name = "Hollywood Light",
-		Accent = Color3.fromRGB(178, 101, 199),
-		AcrylicMain = Color3.fromRGB(240, 240, 240),
-		AcrylicBorder = Color3.fromRGB(200, 200, 200),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(240, 240, 240), Color3.fromRGB(250, 250, 250)),
-		AcrylicNoise = 1,
-		TitleBarLine = Color3.fromRGB(200, 200, 200),
-		Tab = Color3.fromRGB(50, 50, 50),
-		Element = Color3.fromRGB(255, 255, 255),
-		ElementBorder = Color3.fromRGB(200, 200, 200),
-		InElementBorder = Color3.fromRGB(220, 220, 220),
-		ElementTransparency = 0.9,
-		ToggleSlider = Color3.fromRGB(200, 200, 200),
-		ToggleToggled = Color3.fromRGB(255, 255, 255),
-		SliderRail = Color3.fromRGB(230, 230, 230),
-		DropdownFrame = Color3.fromRGB(255, 255, 255),
-		DropdownHolder = Color3.fromRGB(240, 240, 240),
-		DropdownBorder = Color3.fromRGB(200, 200, 200),
-		DropdownOption = Color3.fromRGB(50, 50, 50),
-		Keybind = Color3.fromRGB(50, 50, 50),
-		Input = Color3.fromRGB(255, 255, 255),
-		InputFocused = Color3.fromRGB(240, 240, 240),
-		InputIndicator = Color3.fromRGB(50, 50, 50),
-		Dialog = Color3.fromRGB(255, 255, 255),
-		DialogHolder = Color3.fromRGB(240, 240, 240),
-		DialogHolderLine = Color3.fromRGB(200, 200, 200),
-		DialogButton = Color3.fromRGB(178, 101, 199), -- [FIX]
-		DialogButtonBorder = Color3.fromRGB(178, 101, 199),
-		DialogBorder = Color3.fromRGB(200, 200, 200),
-		DialogInput = Color3.fromRGB(240, 240, 240),
-		DialogInputLine = Color3.fromRGB(178, 101, 199),
-		Text = Color3.fromRGB(40, 40, 40), -- [FIX] Màu tối cho nền sáng
-		SubText = Color3.fromRGB(100, 100, 100),
-		Hover = Color3.fromRGB(230, 230, 230),
-		HoverChange = 0.1
-	},
-	Orca = { Name = "Orca", Accent = Color3.fromRGB(255, 170, 0), AcrylicMain = Color3.fromRGB(12, 12, 12), AcrylicBorder = Color3.fromRGB(20, 20, 20), AcrylicGradient = ColorSequence.new(Color3.fromRGB(12, 12, 12), Color3.fromRGB(12, 12, 12)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(193, 61, 191), Tab = Color3.fromRGB(200, 200, 200), Element = Color3.fromRGB(18, 18, 18), ElementBorder = Color3.fromRGB(30, 30, 30), InElementBorder = Color3.fromRGB(25, 25, 25), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(30, 30, 30), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(12, 12, 12), DropdownFrame = Color3.fromRGB(18, 18, 18), DropdownHolder = Color3.fromRGB(12, 12, 12), DropdownBorder = Color3.fromRGB(20, 20, 20), DropdownOption = Color3.fromRGB(200, 200, 200), Keybind = Color3.fromRGB(200, 200, 200), Input = Color3.fromRGB(18, 18, 18), InputFocused = Color3.fromRGB(12, 12, 12), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(18, 18, 18), DialogHolder = Color3.fromRGB(12, 12, 12), DialogHolderLine = Color3.fromRGB(193, 61, 191), DialogButton = Color3.fromRGB(255, 170, 0), DialogButtonBorder = Color3.fromRGB(255, 170, 0), DialogBorder = Color3.fromRGB(20, 20, 20), DialogInput = Color3.fromRGB(18, 18, 18), DialogInputLine = Color3.fromRGB(193, 61, 191), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(180, 180, 180), Hover = Color3.fromRGB(30, 30, 30), HoverChange = 0.1 },
-	Glacier = { Name = "Glacier", Accent = Color3.fromRGB(196, 222, 255), AcrylicMain = Color3.fromRGB(240, 240, 240), AcrylicBorder = Color3.fromRGB(191, 211, 217), AcrylicGradient = ColorSequence.new(Color3.fromRGB(240, 240, 240), Color3.fromRGB(240, 240, 240)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(56, 63, 66), Tab = Color3.fromRGB(50, 50, 50), Element = Color3.fromRGB(250, 250, 250), ElementBorder = Color3.fromRGB(191, 211, 217), InElementBorder = Color3.fromRGB(209, 209, 209), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(200, 200, 200), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(240, 238, 240), DropdownFrame = Color3.fromRGB(250, 250, 250), DropdownHolder = Color3.fromRGB(239, 246, 250), DropdownBorder = Color3.fromRGB(191, 211, 217), DropdownOption = Color3.fromRGB(50, 50, 50), Keybind = Color3.fromRGB(50, 50, 50), Input = Color3.fromRGB(250, 250, 250), InputFocused = Color3.fromRGB(240, 240, 240), InputIndicator = Color3.fromRGB(0, 0, 0), Dialog = Color3.fromRGB(250, 250, 250), DialogHolder = Color3.fromRGB(239, 246, 250), DialogHolderLine = Color3.fromRGB(56, 63, 66), DialogButton = Color3.fromRGB(196, 222, 255), DialogButtonBorder = Color3.fromRGB(196, 222, 255), DialogBorder = Color3.fromRGB(191, 211, 217), DialogInput = Color3.fromRGB(239, 246, 250), DialogInputLine = Color3.fromRGB(56, 63, 66), Text = Color3.fromRGB(0, 0, 0), SubText = Color3.fromRGB(100, 100, 100), Hover = Color3.fromRGB(230, 230, 230), HoverChange = 0.1 },
-	Pacific = { Name = "Pacific", Accent = Color3.fromRGB(85, 255, 255), AcrylicMain = Color3.fromRGB(15, 15, 20), AcrylicBorder = Color3.fromRGB(20, 20, 25), AcrylicGradient = ColorSequence.new(Color3.fromRGB(15, 15, 20), Color3.fromRGB(15, 15, 20)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(85, 255, 127), Tab = Color3.fromRGB(255, 255, 255), Element = Color3.fromRGB(20, 20, 30), ElementBorder = Color3.fromRGB(25, 25, 35), InElementBorder = Color3.fromRGB(30, 30, 40), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(30, 30, 40), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(12, 12, 12), DropdownFrame = Color3.fromRGB(20, 20, 30), DropdownHolder = Color3.fromRGB(15, 15, 20), DropdownBorder = Color3.fromRGB(25, 25, 35), DropdownOption = Color3.fromRGB(255, 255, 255), Keybind = Color3.fromRGB(255, 255, 255), Input = Color3.fromRGB(20, 20, 30), InputFocused = Color3.fromRGB(15, 15, 20), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(20, 20, 30), DialogHolder = Color3.fromRGB(15, 15, 20), DialogHolderLine = Color3.fromRGB(85, 255, 127), DialogButton = Color3.fromRGB(85, 255, 255), DialogButtonBorder = Color3.fromRGB(85, 255, 255), DialogBorder = Color3.fromRGB(25, 25, 35), DialogInput = Color3.fromRGB(20, 20, 30), DialogInputLine = Color3.fromRGB(85, 255, 127), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(180, 180, 180), Hover = Color3.fromRGB(30, 30, 40), HoverChange = 0.1 },
-	Neo = { Name = "Neo", Accent = Color3.fromRGB(0, 0, 0), AcrylicMain = Color3.fromRGB(240, 240, 240), AcrylicBorder = Color3.fromRGB(200, 200, 200), AcrylicGradient = ColorSequence.new(Color3.fromRGB(240, 240, 240), Color3.fromRGB(240, 240, 240)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(40, 40, 40), Tab = Color3.fromRGB(50, 50, 50), Element = Color3.fromRGB(250, 250, 250), ElementBorder = Color3.fromRGB(200, 200, 200), InElementBorder = Color3.fromRGB(220, 220, 220), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(220, 220, 220), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(240, 240, 240), DropdownFrame = Color3.fromRGB(250, 250, 250), DropdownHolder = Color3.fromRGB(240, 240, 240), DropdownBorder = Color3.fromRGB(200, 200, 200), DropdownOption = Color3.fromRGB(50, 50, 50), Keybind = Color3.fromRGB(50, 50, 50), Input = Color3.fromRGB(250, 250, 250), InputFocused = Color3.fromRGB(240, 240, 240), InputIndicator = Color3.fromRGB(0, 0, 0), Dialog = Color3.fromRGB(250, 250, 250), DialogHolder = Color3.fromRGB(240, 240, 240), DialogHolderLine = Color3.fromRGB(40, 40, 40), DialogButton = Color3.fromRGB(0, 0, 0), DialogButtonBorder = Color3.fromRGB(0, 0, 0), DialogBorder = Color3.fromRGB(200, 200, 200), DialogInput = Color3.fromRGB(250, 250, 250), DialogInputLine = Color3.fromRGB(40, 40, 40), Text = Color3.fromRGB(0, 0, 0), SubText = Color3.fromRGB(100, 100, 100), Hover = Color3.fromRGB(230, 230, 230), HoverChange = 0.1 },
-	["Neo (Dark)"] = { Name = "Neo (Dark)", Accent = Color3.fromRGB(220, 220, 220), AcrylicMain = Color3.fromRGB(13, 13, 13), AcrylicBorder = Color3.fromRGB(25, 25, 25), AcrylicGradient = ColorSequence.new(Color3.fromRGB(13, 13, 13), Color3.fromRGB(13, 13, 13)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(199, 199, 199), Tab = Color3.fromRGB(220, 220, 220), Element = Color3.fromRGB(20, 20, 20), ElementBorder = Color3.fromRGB(30, 30, 30), InElementBorder = Color3.fromRGB(25, 25, 25), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(30, 30, 30), ToggleToggled = Color3.fromRGB(220, 220, 220), SliderRail = Color3.fromRGB(13, 13, 13), DropdownFrame = Color3.fromRGB(20, 20, 20), DropdownHolder = Color3.fromRGB(13, 13, 13), DropdownBorder = Color3.fromRGB(25, 25, 25), DropdownOption = Color3.fromRGB(220, 220, 220), Keybind = Color3.fromRGB(220, 220, 220), Input = Color3.fromRGB(20, 20, 20), InputFocused = Color3.fromRGB(13, 13, 13), InputIndicator = Color3.fromRGB(200, 200, 200), Dialog = Color3.fromRGB(20, 20, 20), DialogHolder = Color3.fromRGB(13, 13, 13), DialogHolderLine = Color3.fromRGB(199, 199, 199), DialogButton = Color3.fromRGB(220, 220, 220), DialogButtonBorder = Color3.fromRGB(220, 220, 220), DialogBorder = Color3.fromRGB(25, 25, 25), DialogInput = Color3.fromRGB(20, 20, 20), DialogInputLine = Color3.fromRGB(199, 199, 199), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(150, 150, 150), Hover = Color3.fromRGB(30, 30, 30), HoverChange = 0.1 },
-	Crimson = { Name = "Crimson", Accent = Color3.fromRGB(216, 79, 104), AcrylicMain = Color3.fromRGB(11, 11, 15), AcrylicBorder = Color3.fromRGB(25, 25, 30), AcrylicGradient = ColorSequence.new(Color3.fromRGB(11, 11, 15), Color3.fromRGB(11, 11, 15)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(107, 107, 109), Tab = Color3.fromRGB(200, 200, 200), Element = Color3.fromRGB(18, 18, 24), ElementBorder = Color3.fromRGB(30, 30, 40), InElementBorder = Color3.fromRGB(25, 25, 35), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(30, 30, 40), ToggleToggled = Color3.fromRGB(216, 79, 104), SliderRail = Color3.fromRGB(11, 11, 15), DropdownFrame = Color3.fromRGB(18, 18, 24), DropdownHolder = Color3.fromRGB(11, 11, 15), DropdownBorder = Color3.fromRGB(25, 25, 30), DropdownOption = Color3.fromRGB(200, 200, 200), Keybind = Color3.fromRGB(200, 200, 200), Input = Color3.fromRGB(18, 18, 24), InputFocused = Color3.fromRGB(11, 11, 15), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(18, 18, 24), DialogHolder = Color3.fromRGB(11, 11, 15), DialogHolderLine = Color3.fromRGB(107, 107, 109), DialogButton = Color3.fromRGB(216, 79, 104), DialogButtonBorder = Color3.fromRGB(216, 79, 104), DialogBorder = Color3.fromRGB(25, 25, 30), DialogInput = Color3.fromRGB(18, 18, 24), DialogInputLine = Color3.fromRGB(107, 107, 109), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(160, 160, 160), Hover = Color3.fromRGB(30, 30, 40), HoverChange = 0.1 },
-	Nebula = { Name = "Nebula", Accent = Color3.fromRGB(94, 255, 236), AcrylicMain = Color3.fromRGB(5, 10, 15), AcrylicBorder = Color3.fromRGB(20, 25, 35), AcrylicGradient = ColorSequence.new(Color3.fromRGB(5, 10, 15), Color3.fromRGB(5, 10, 15)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(201, 209, 217), Tab = Color3.fromRGB(200, 200, 220), Element = Color3.fromRGB(15, 20, 25), ElementBorder = Color3.fromRGB(25, 30, 40), InElementBorder = Color3.fromRGB(20, 25, 35), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(25, 30, 40), ToggleToggled = Color3.fromRGB(94, 255, 236), SliderRail = Color3.fromRGB(5, 10, 15), DropdownFrame = Color3.fromRGB(15, 20, 25), DropdownHolder = Color3.fromRGB(5, 10, 15), DropdownBorder = Color3.fromRGB(20, 25, 35), DropdownOption = Color3.fromRGB(200, 200, 220), Keybind = Color3.fromRGB(200, 200, 220), Input = Color3.fromRGB(15, 20, 25), InputFocused = Color3.fromRGB(5, 10, 15), InputIndicator = Color3.fromRGB(243, 243, 243), Dialog = Color3.fromRGB(15, 20, 25), DialogHolder = Color3.fromRGB(5, 10, 15), DialogHolderLine = Color3.fromRGB(201, 209, 217), DialogButton = Color3.fromRGB(94, 255, 236), DialogButtonBorder = Color3.fromRGB(94, 255, 236), DialogBorder = Color3.fromRGB(20, 25, 35), DialogInput = Color3.fromRGB(15, 20, 25), DialogInputLine = Color3.fromRGB(201, 209, 217), Text = Color3.fromRGB(243, 243, 243), SubText = Color3.fromRGB(150, 150, 170), Hover = Color3.fromRGB(30, 35, 45), HoverChange = 0.1 },
-	Evergreen = { Name = "Evergreen", Accent = Color3.fromRGB(167, 192, 128), AcrylicMain = Color3.fromRGB(41, 50, 54), AcrylicBorder = Color3.fromRGB(60, 65, 70), AcrylicGradient = ColorSequence.new(Color3.fromRGB(41, 50, 54), Color3.fromRGB(41, 50, 54)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(211, 198, 170), Tab = Color3.fromRGB(220, 220, 220), Element = Color3.fromRGB(50, 58, 62), ElementBorder = Color3.fromRGB(60, 65, 70), InElementBorder = Color3.fromRGB(55, 60, 65), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(60, 65, 70), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(41, 50, 54), DropdownFrame = Color3.fromRGB(50, 58, 62), DropdownHolder = Color3.fromRGB(41, 50, 54), DropdownBorder = Color3.fromRGB(60, 65, 70), DropdownOption = Color3.fromRGB(220, 220, 220), Keybind = Color3.fromRGB(220, 220, 220), Input = Color3.fromRGB(50, 58, 62), InputFocused = Color3.fromRGB(41, 50, 54), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(50, 58, 62), DialogHolder = Color3.fromRGB(41, 50, 54), DialogHolderLine = Color3.fromRGB(211, 198, 170), DialogButton = Color3.fromRGB(167, 192, 128), DialogButtonBorder = Color3.fromRGB(167, 192, 128), DialogBorder = Color3.fromRGB(60, 65, 70), DialogInput = Color3.fromRGB(50, 58, 62), DialogInputLine = Color3.fromRGB(211, 198, 170), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(180, 180, 180), Hover = Color3.fromRGB(60, 68, 72), HoverChange = 0.1 },
-	Ubuntu = { Name = "Ubuntu", Accent = Color3.fromRGB(226, 88, 30), AcrylicMain = Color3.fromRGB(50, 50, 50), AcrylicBorder = Color3.fromRGB(70, 70, 70), AcrylicGradient = ColorSequence.new(Color3.fromRGB(50, 50, 50), Color3.fromRGB(50, 50, 50)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(226, 88, 30), Tab = Color3.fromRGB(255, 255, 255), Element = Color3.fromRGB(60, 60, 60), ElementBorder = Color3.fromRGB(70, 70, 70), InElementBorder = Color3.fromRGB(65, 65, 65), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(70, 70, 70), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(50, 50, 50), DropdownFrame = Color3.fromRGB(60, 60, 60), DropdownHolder = Color3.fromRGB(50, 50, 50), DropdownBorder = Color3.fromRGB(70, 70, 70), DropdownOption = Color3.fromRGB(255, 255, 255), Keybind = Color3.fromRGB(255, 255, 255), Input = Color3.fromRGB(60, 60, 60), InputFocused = Color3.fromRGB(50, 50, 50), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(60, 60, 60), DialogHolder = Color3.fromRGB(50, 50, 50), DialogHolderLine = Color3.fromRGB(226, 88, 30), DialogButton = Color3.fromRGB(226, 88, 30), DialogButtonBorder = Color3.fromRGB(226, 88, 30), DialogBorder = Color3.fromRGB(70, 70, 70), DialogInput = Color3.fromRGB(60, 60, 60), DialogInputLine = Color3.fromRGB(226, 88, 30), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(180, 180, 180), Hover = Color3.fromRGB(70, 70, 70), HoverChange = 0.1 },
-	Luna = { Name = "Luna", Accent = Color3.fromRGB(117, 164, 206), AcrylicMain = Color3.fromRGB(21, 20, 25), AcrylicBorder = Color3.fromRGB(40, 40, 50), AcrylicGradient = ColorSequence.new(Color3.fromRGB(21, 20, 25), Color3.fromRGB(21, 20, 25)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(64, 61, 76), Tab = Color3.fromRGB(200, 200, 220), Element = Color3.fromRGB(30, 30, 40), ElementBorder = Color3.fromRGB(40, 40, 50), InElementBorder = Color3.fromRGB(35, 35, 45), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(40, 40, 50), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(21, 20, 25), DropdownFrame = Color3.fromRGB(30, 30, 40), DropdownHolder = Color3.fromRGB(21, 20, 25), DropdownBorder = Color3.fromRGB(40, 40, 50), DropdownOption = Color3.fromRGB(200, 200, 220), Keybind = Color3.fromRGB(200, 200, 220), Input = Color3.fromRGB(30, 30, 40), InputFocused = Color3.fromRGB(21, 20, 25), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(30, 30, 40), DialogHolder = Color3.fromRGB(21, 20, 25), DialogHolderLine = Color3.fromRGB(64, 61, 76), DialogButton = Color3.fromRGB(117, 164, 206), DialogButtonBorder = Color3.fromRGB(117, 164, 206), DialogBorder = Color3.fromRGB(40, 40, 50), DialogInput = Color3.fromRGB(30, 30, 40), DialogInputLine = Color3.fromRGB(64, 61, 76), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(180, 180, 200), Hover = Color3.fromRGB(40, 40, 50), HoverChange = 0.1 },
-	["Tokyo Night"] = { Name = "Tokyo Night", Accent = Color3.fromRGB(132, 116, 163), AcrylicMain = Color3.fromRGB(22, 22, 31), AcrylicBorder = Color3.fromRGB(40, 40, 50), AcrylicGradient = ColorSequence.new(Color3.fromRGB(22, 22, 31), Color3.fromRGB(22, 22, 31)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(144, 101, 163), Tab = Color3.fromRGB(200, 200, 220), Element = Color3.fromRGB(30, 30, 40), ElementBorder = Color3.fromRGB(40, 40, 50), InElementBorder = Color3.fromRGB(35, 35, 45), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(40, 40, 50), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(22, 22, 31), DropdownFrame = Color3.fromRGB(30, 30, 40), DropdownHolder = Color3.fromRGB(22, 22, 31), DropdownBorder = Color3.fromRGB(40, 40, 50), DropdownOption = Color3.fromRGB(200, 200, 220), Keybind = Color3.fromRGB(200, 200, 220), Input = Color3.fromRGB(30, 30, 40), InputFocused = Color3.fromRGB(22, 22, 31), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(30, 30, 40), DialogHolder = Color3.fromRGB(22, 22, 31), DialogHolderLine = Color3.fromRGB(144, 101, 163), DialogButton = Color3.fromRGB(132, 116, 163), DialogButtonBorder = Color3.fromRGB(132, 116, 163), DialogBorder = Color3.fromRGB(40, 40, 50), DialogInput = Color3.fromRGB(30, 30, 40), DialogInputLine = Color3.fromRGB(144, 101, 163), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(170, 170, 200), Hover = Color3.fromRGB(40, 40, 50), HoverChange = 0.1 },
-	OperaGX = { Name = "OperaGX", Accent = Color3.fromRGB(250, 30, 78), AcrylicMain = Color3.fromRGB(15, 13, 18), AcrylicBorder = Color3.fromRGB(40, 35, 45), AcrylicGradient = ColorSequence.new(Color3.fromRGB(15, 13, 18), Color3.fromRGB(15, 13, 18)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(250, 30, 78), Tab = Color3.fromRGB(255, 255, 255), Element = Color3.fromRGB(25, 20, 30), ElementBorder = Color3.fromRGB(40, 35, 45), InElementBorder = Color3.fromRGB(35, 30, 40), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(35, 30, 40), ToggleToggled = Color3.fromRGB(255, 255, 255), SliderRail = Color3.fromRGB(15, 13, 18), DropdownFrame = Color3.fromRGB(25, 20, 30), DropdownHolder = Color3.fromRGB(15, 13, 18), DropdownBorder = Color3.fromRGB(40, 35, 45), DropdownOption = Color3.fromRGB(255, 255, 255), Keybind = Color3.fromRGB(255, 255, 255), Input = Color3.fromRGB(25, 20, 30), InputFocused = Color3.fromRGB(15, 13, 18), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(25, 20, 30), DialogHolder = Color3.fromRGB(15, 13, 18), DialogHolderLine = Color3.fromRGB(250, 30, 78), DialogButton = Color3.fromRGB(250, 30, 78), DialogButtonBorder = Color3.fromRGB(250, 30, 78), DialogBorder = Color3.fromRGB(40, 35, 45), DialogInput = Color3.fromRGB(25, 20, 30), DialogInputLine = Color3.fromRGB(250, 30, 78), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(180, 180, 180), Hover = Color3.fromRGB(35, 30, 40), HoverChange = 0.1 },
-	BBot = { Name = "BBot", Accent = Color3.fromRGB(126, 72, 163), AcrylicMain = Color3.fromRGB(35, 35, 35), AcrylicBorder = Color3.fromRGB(50, 50, 50), AcrylicGradient = ColorSequence.new(Color3.fromRGB(35, 35, 35), Color3.fromRGB(35, 35, 35)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(144, 101, 163), Tab = Color3.fromRGB(220, 220, 220), Element = Color3.fromRGB(45, 45, 45), ElementBorder = Color3.fromRGB(50, 50, 50), InElementBorder = Color3.fromRGB(40, 40, 40), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(50, 50, 50), ToggleToggled = Color3.fromRGB(220, 220, 220), SliderRail = Color3.fromRGB(35, 35, 35), DropdownFrame = Color3.fromRGB(45, 45, 45), DropdownHolder = Color3.fromRGB(35, 35, 35), DropdownBorder = Color3.fromRGB(50, 50, 50), DropdownOption = Color3.fromRGB(220, 220, 220), Keybind = Color3.fromRGB(220, 220, 220), Input = Color3.fromRGB(45, 45, 45), InputFocused = Color3.fromRGB(35, 35, 35), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(45, 45, 45), DialogHolder = Color3.fromRGB(35, 35, 35), DialogHolderLine = Color3.fromRGB(144, 101, 163), DialogButton = Color3.fromRGB(126, 72, 163), DialogButtonBorder = Color3.fromRGB(126, 72, 163), DialogBorder = Color3.fromRGB(50, 50, 50), DialogInput = Color3.fromRGB(45, 45, 45), DialogInputLine = Color3.fromRGB(144, 101, 163), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(180, 180, 180), Hover = Color3.fromRGB(50, 50, 50), HoverChange = 0.1 },
-	["Hollywood Fluent"] = { Name = "Hollywood Fluent", Accent = Color3.fromRGB(174, 216, 232), AcrylicMain = Color3.fromRGB(25, 25, 25), AcrylicBorder = Color3.fromRGB(45, 45, 45), AcrylicGradient = ColorSequence.new(Color3.fromRGB(25, 25, 25), Color3.fromRGB(25, 25, 25)), AcrylicNoise = 1, TitleBarLine = Color3.fromRGB(180, 180, 180), Tab = Color3.fromRGB(200, 200, 200), Element = Color3.fromRGB(35, 35, 35), ElementBorder = Color3.fromRGB(45, 45, 45), InElementBorder = Color3.fromRGB(40, 40, 40), ElementTransparency = 0.9, ToggleSlider = Color3.fromRGB(40, 40, 40), ToggleToggled = Color3.fromRGB(200, 200, 200), SliderRail = Color3.fromRGB(25, 25, 25), DropdownFrame = Color3.fromRGB(35, 35, 35), DropdownHolder = Color3.fromRGB(25, 25, 25), DropdownBorder = Color3.fromRGB(45, 45, 45), DropdownOption = Color3.fromRGB(200, 200, 200), Keybind = Color3.fromRGB(200, 200, 200), Input = Color3.fromRGB(35, 35, 35), InputFocused = Color3.fromRGB(25, 25, 25), InputIndicator = Color3.fromRGB(255, 255, 255), Dialog = Color3.fromRGB(35, 35, 35), DialogHolder = Color3.fromRGB(25, 25, 25), DialogHolderLine = Color3.fromRGB(180, 180, 180), DialogButton = Color3.fromRGB(174, 216, 232), DialogButtonBorder = Color3.fromRGB(174, 216, 232), DialogBorder = Color3.fromRGB(45, 45, 45), DialogInput = Color3.fromRGB(35, 35, 35), DialogInputLine = Color3.fromRGB(180, 180, 180), Text = Color3.fromRGB(255, 255, 255), SubText = Color3.fromRGB(170, 170, 170), Hover = Color3.fromRGB(40, 40, 40), HoverChange = 0.1 },
-
-	-- [[ 3. SPECIAL THEMES ]] --
-
-	Image = {
-		Name = "Image",
-		BackgroundImage = "rbxassetid://13196113628",
-		BackgroundTransparency = 0,
-		BackgroundImageTransparency = 0,
-		ElementTransparency = 0.3,
-		Accent = Color3.fromRGB(255, 255, 255),
-		AcrylicMain = Color3.fromRGB(0, 0, 0),
-		AcrylicBorder = Color3.fromRGB(255, 255, 255),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(0,0,0), Color3.fromRGB(0,0,0)),
-		AcrylicNoise = 0,
-		TitleBarLine = Color3.fromRGB(255, 255, 255),
-		Tab = Color3.fromRGB(255, 255, 255),
-		Element = Color3.fromRGB(20, 20, 20),
-		ElementBorder = Color3.fromRGB(0, 0, 0),
-		InElementBorder = Color3.fromRGB(0, 0, 0),
-		ToggleSlider = Color3.fromRGB(120, 120, 120),
-		ToggleToggled = Color3.fromRGB(255, 255, 255),
-		SliderRail = Color3.fromRGB(120, 120, 120),
-		DropdownFrame = Color3.fromRGB(30, 30, 30),
-		DropdownHolder = Color3.fromRGB(30, 30, 30),
-		DropdownBorder = Color3.fromRGB(0, 0, 0),
-		DropdownOption = Color3.fromRGB(255, 255, 255),
-		Keybind = Color3.fromRGB(255, 255, 255),
-		Input = Color3.fromRGB(30, 30, 30),
-		InputFocused = Color3.fromRGB(50, 50, 50),
-		InputIndicator = Color3.fromRGB(255, 255, 255),
-		Dialog = Color3.fromRGB(30, 30, 30),
-		DialogHolder = Color3.fromRGB(20, 20, 20),
-		DialogHolderLine = Color3.fromRGB(50, 50, 50),
-		DialogButton = Color3.fromRGB(255, 255, 255),
-		DialogButtonBorder = Color3.fromRGB(255, 255, 255),
-		DialogBorder = Color3.fromRGB(50, 50, 50),
-		DialogInput = Color3.fromRGB(40, 40, 40),
-		DialogInputLine = Color3.fromRGB(100, 100, 100),
-		Text = Color3.fromRGB(255, 255, 255),
-		SubText = Color3.fromRGB(200, 200, 200),
-		Hover = Color3.fromRGB(50, 50, 50),
-		HoverChange = 0.1,
-	},
-
-	Rainbow = {
-		Name = "Rainbow",
-		Accent = Color3.fromRGB(255, 0, 0), -- Placeholder
-		AcrylicMain = Color3.fromRGB(10, 10, 15),
-		AcrylicBorder = Color3.fromRGB(50, 50, 50),
-		AcrylicGradient = ColorSequence.new(Color3.fromRGB(10, 10, 15), Color3.fromRGB(15, 15, 25)),
-		AcrylicNoise = 0.95,
-		TitleBarLine = Color3.fromRGB(255, 255, 255), 
-		Tab = Color3.fromRGB(255, 255, 255),
-		Element = Color3.fromRGB(25, 25, 30),
-		ElementBorder = Color3.fromRGB(0, 0, 0),
-		InElementBorder = Color3.fromRGB(40, 40, 40),
-		ElementTransparency = 0.9,
-		ToggleSlider = Color3.fromRGB(60, 60, 60),
-		ToggleToggled = Color3.fromRGB(255, 255, 255),
-		SliderRail = Color3.fromRGB(60, 60, 60),
-		DropdownFrame = Color3.fromRGB(35, 35, 40),
-		DropdownHolder = Color3.fromRGB(25, 25, 30),
-		DropdownBorder = Color3.fromRGB(60, 60, 60),
-		DropdownOption = Color3.fromRGB(255, 255, 255),
-		Keybind = Color3.fromRGB(255, 255, 255),
-		Input = Color3.fromRGB(35, 35, 40),
-		InputFocused = Color3.fromRGB(20, 20, 25),
-		InputIndicator = Color3.fromRGB(255, 255, 255),
-		Dialog = Color3.fromRGB(25, 25, 30),
-		DialogHolder = Color3.fromRGB(20, 20, 25),
-		DialogHolderLine = Color3.fromRGB(255, 255, 255),
-		DialogButton = Color3.fromRGB(255, 0, 0), -- Đỏ tạm
-		DialogButtonBorder = Color3.fromRGB(255, 0, 0),
-		DialogBorder = Color3.fromRGB(50, 50, 50),
-		DialogInput = Color3.fromRGB(30, 30, 35),
-		DialogInputLine = Color3.fromRGB(255, 255, 255),
-		Text = Color3.fromRGB(255, 255, 255),
-		SubText = Color3.fromRGB(180, 180, 180),
-		Hover = Color3.fromRGB(50, 50, 60),
-		HoverChange = 0.1,
-	}
+    Nebula = {
+        Name = "Nebula",
+        -- [MÀU CHỦ ĐẠO] Phối màu Neon Tím/Hồng/Cyan từ ảnh vũ trụ
+        Accent = Color3.fromRGB(255, 120, 255), -- Màu hồng tím sáng (Neon Pink) cho điểm nhấn
+        
+        -- [KÍNH MỜ NỀN]
+        AcrylicMain = Color3.fromRGB(35, 20, 50), -- Nền kính màu tím than đậm
+        AcrylicBorder = Color3.fromRGB(120, 220, 255), -- Viền kính sáng màu Cyan
+        AcrylicGradient = ColorSequence.new(Color3.fromRGB(35, 20, 50), Color3.fromRGB(15, 10, 30)),
+        AcrylicNoise = 0.85, -- Độ nhiễu hạt nhẹ để tạo chất liệu kính
+        
+        -- [THANH TIÊU ĐỀ & TAB]
+        TitleBarLine = Color3.fromRGB(120, 220, 255), -- Đường kẻ Cyan dưới tiêu đề
+        Tab = Color3.fromRGB(255, 255, 255),
+        
+        -- [PHẦN TỬ BÊN TRONG]
+        Element = Color3.fromRGB(60, 45, 90), -- Màu nền nút (Tím sáng hơn nền kính)
+        ElementBorder = Color3.fromRGB(100, 180, 255), -- Viền nút xanh dương nhạt
+        InElementBorder = Color3.fromRGB(100, 100, 150),
+        ElementTransparency = 0.6, -- [QUAN TRỌNG] Trong suốt 60% để nhìn xuyên thấu ảnh
+        
+        -- [NÚT GẠT & THANH KÉO]
+        ToggleSlider = Color3.fromRGB(100, 180, 255),
+        ToggleToggled = Color3.fromRGB(255, 120, 255), -- Bật lên màu Hồng Neon
+        SliderRail = Color3.fromRGB(100, 180, 255),
+        
+        -- [MENU THẢ]
+        DropdownFrame = Color3.fromRGB(50, 40, 80),
+        DropdownHolder = Color3.fromRGB(35, 20, 50),
+        DropdownBorder = Color3.fromRGB(100, 180, 255),
+        DropdownOption = Color3.fromRGB(255, 255, 255),
+        
+        -- [NHẬP LIỆU]
+        Keybind = Color3.fromRGB(255, 255, 255),
+        Input = Color3.fromRGB(50, 40, 80),
+        InputFocused = Color3.fromRGB(35, 20, 50),
+        InputIndicator = Color3.fromRGB(255, 120, 255), -- Chỉ báo màu hồng
+        
+        -- [HỘP THOẠI DIALOG]
+        Dialog = Color3.fromRGB(50, 40, 80),
+        DialogHolder = Color3.fromRGB(35, 20, 50),
+        DialogHolderLine = Color3.fromRGB(120, 220, 255),
+        DialogButton = Color3.fromRGB(60, 45, 90),
+        DialogButtonBorder = Color3.fromRGB(255, 120, 255),
+        DialogBorder = Color3.fromRGB(120, 220, 255),
+        DialogInput = Color3.fromRGB(60, 45, 90),
+        DialogInputLine = Color3.fromRGB(255, 120, 255),
+        
+        -- [CHỮ]
+        Text = Color3.fromRGB(255, 255, 255),
+        SubText = Color3.fromRGB(200, 220, 255), -- Chữ phụ hơi xanh
+        Hover = Color3.fromRGB(80, 70, 120),
+        HoverChange = 0.1,
+    }
 }
 
 local Library = {
-	Version = "1.2.2",
+	Version = "2.0.1",
 
 	OpenFrames = {},
 	Options = {},
@@ -9165,94 +8881,48 @@ end
 
 
 Library.CreateWindow = function(self, Config)
-    assert(Config.Title, "Window - Missing Title")
-
-    -- [!] THÊM ĐOẠN NÀY ĐỂ ÉP UI NGANG NHƯ STARLIGHT [!]
-    -- Kích thước chuẩn Starlight thường là khoảng 800x450 hoặc 900x500
-    Config.Size = UDim2.fromOffset(850, 500) 
+    -- [1] CẤU HÌNH CỐ ĐỊNH (THEME NEBULA & ẢNH NỀN)
+    Config.Theme = "Nebula"       
+    Config.Acrylic = true         
     
-    -- Tự động chỉnh độ rộng thanh Tab cho cân đối với giao diện ngang
-    if not Config.TabWidth then Config.TabWidth = 180 end 
-    -- [!] HẾT PHẦN THÊM [!]
+    -- ID ảnh bạn cung cấp
+    Config.BackgroundImage = "rbxassetid://73818385002144" 
+    
+    -- Tinh chỉnh độ trong suốt kính (Glassmorphism)
+    if Config.BackgroundTransparency == nil then Config.BackgroundTransparency = 0.2 end
+    if Config.BackgroundImageTransparency == nil then Config.BackgroundImageTransparency = 0 end
+
+    -- [2] ÉP KÍCH THƯỚC TỶ LỆ 16:9 (Để ảnh Full HD không bị méo)
+    if not Config.Size then Config.Size = UDim2.fromOffset(854, 480) end
+    if not Config.TabWidth then Config.TabWidth = 180 end
+
+    assert(Config.Title, "Window - Missing Title")
 
     if Library.Window then
         print("You cannot create more than one window.")
         return
     end
-  -- ... (Code cũ giữ nguyên)
 
+    Library.MinimizeKey = Config.MinimizeKey or Enum.KeyCode.LeftControl
+    Library.UseAcrylic = Config.Acrylic
+    Library.Acrylic = Config.Acrylic
+    Library.Theme = Config.Theme
 
+    if Config.Acrylic then
+        Acrylic.init()
+    end
 
+    local Icon = Config.Icon
+    if not fischbypass then 
+        if Library:GetIcon(Icon) then
+            Icon = Library:GetIcon(Icon)
+        end
+        if Icon == "" or Icon == nil then
+            Icon = nil
+        end
+    end
 
-	Library.MinimizeKey = Config.MinimizeKey or Enum.KeyCode.LeftControl
-
-
-	Library.UseAcrylic = Config.Acrylic or false
-
-
-	Library.Acrylic = Config.Acrylic or false
-
-
-	Library.Theme = Config.Theme or "Dark"
-
-	if Config.BackgroundImage == nil then
-		Config.BackgroundImage = "rbxassetid://13196113628"
-	end
-
-	if Config.BackgroundTransparency == nil then
-		Config.BackgroundTransparency = 0.5
-	end
-
-
-
-
-
-	if Config.Acrylic then
-
-
-		Acrylic.init()
-
-
-	end
-
-
-
-
-
-	local Icon = Config.Icon
-
-
-	if not fischbypass then 
-
-
-		if Library:GetIcon(Icon) then
-
-
-			Icon = Library:GetIcon(Icon)
-
-
-		end
-
-
-
-
-
-		if Icon == "" or Icon == nil then
-
-
-			Icon = nil
-
-
-		end
-
-
-	end
-
-
-
-
-
-local Window = Components.Window({
+    local Window = Components.Window({
         Parent = GUI,
         Size = Config.Size,
         Title = Config.Title,
@@ -9274,26 +8944,27 @@ local Window = Components.Window({
 
     Library.Window = Window
     table.insert(Library.Windows, Window)
-    InterfaceManager:SetTheme(Config.Theme)
-    Library:SetTheme(Config.Theme)
+    
+    -- Áp dụng Theme Nebula ngay lập tức
+    InterfaceManager:SetTheme("Nebula")
+    Library:SetTheme("Nebula")
 
     -- ========================================================
     -- [START] PROFILE CARD EXTENSION (Gắn bên trái GUI)
     -- ========================================================
     local function CreateSideProfile(WindowObj)
-        -- Kiểm tra xem Window có Root không (Fluent thường dùng .Root hoặc .MainFrame)
         local RootFrame = WindowObj.Root 
-        if not RootFrame then return end -- An toàn nếu không tìm thấy Root
+        if not RootFrame then return end 
 
         -- 1. Tạo Khung Thẻ (Card Frame)
         local ProfileCard = Instance.new("Frame")
         ProfileCard.Name = "SideProfileCard"
-        ProfileCard.Size = UDim2.fromOffset(200, 350) -- Kích thước thẻ
-        ProfileCard.Position = UDim2.new(0, -215, 0, 0) -- Vị trí bên trái
+        ProfileCard.Size = UDim2.fromOffset(200, 350) 
+        ProfileCard.Position = UDim2.new(0, -215, 0, 0) 
         ProfileCard.BackgroundColor3 = Color3.fromRGB(25, 25, 25) 
         ProfileCard.BorderSizePixel = 0
         ProfileCard.BackgroundTransparency = 0.1
-        ProfileCard.Parent = RootFrame -- Gắn vào GUI chính
+        ProfileCard.Parent = RootFrame 
         
         -- Bo góc
         local UICorner = Instance.new("UICorner")
@@ -9397,6 +9068,12 @@ local Window = Components.Window({
         
         return ProfileCard
     end
+
+    -- [QUAN TRỌNG] Kích hoạt hàm tạo Profile
+    CreateSideProfile(Window)
+    -- ========================================================
+    -- [END] PROFILE CARD EXTENSION
+    -- ========================================================
 
     return Window
 end
