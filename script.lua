@@ -1959,7 +1959,10 @@ local Window = Fluent:CreateWindow({
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
-    Theme = "Dark",
+    Theme = "Nebula",
+		-- [QUAN TRỌNG NHẤT] Thêm 2 dòng này:
+    BackgroundImage = "rbxassetid://73818385002144", -- Thay ID ảnh Nebula tím đẹp của bạn vào đây
+    BackgroundImageTransparency = 0.2, -- 0 là rõ nhất, 1 là mất hình. 0.2 là đẹp.
     MinimizeKey = Enum.KeyCode.LeftControl, -- Used when theres no MinimizeKeybind
 
     UserInfo = true,
