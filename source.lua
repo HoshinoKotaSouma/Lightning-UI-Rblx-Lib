@@ -9403,6 +9403,79 @@ local Window = Components.Window({
     -- ========================================================
     -- [END] PROFILE CARD EXTENSION
     -- ========================================================
+-- ========================================================
+    -- [START] LIGHTNING THEME UPGRADES (Hiệu ứng Sấm Sét)
+    -- ========================================================
+    
+    local function AddLightningEffects(WindowObj)
+        local RootFrame = WindowObj.Root
+        if not RootFrame then return end
+
+        -- Cấu hình màu chủ đạo (Lightning Theme)
+        local Color1 = Color3.fromRGB(0, 255, 255) -- Cyan (Xanh điện)
+        local Color2 = Color3.fromRGB(0, 150, 255) -- Xanh dương đậm
+        local Color3 = Color3.fromRGB(255, 255, 255) -- Trắng (Tia sét)
+
+        -- 1. TẠO VIỀN ĐIỆN CHẠY (ANIMATED STROKE)
+        -- Xóa viền cũ nếu có để tránh trùng
+        if RootFrame:FindFirstChild("UIStroke") then RootFrame.UIStroke:Destroy() end
+
+        local ElectricStroke = Instance.new("UIStroke")
+        ElectricStroke.Name = "ElectricStroke"
+        ElectricStroke.Thickness = 2
+        ElectricStroke.Transparency = 0
+        ElectricStroke.Parent = RootFrame
+
+        local StrokeGradient = Instance.new("UIGradient")
+        StrokeGradient.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0.00, Color2),
+            ColorSequenceKeypoint.new(0.20, Color1), -- Điểm sáng chạy
+            ColorSequenceKeypoint.new(0.40, Color2),
+            ColorSequenceKeypoint.new(0.50, Color3), -- Tia sét trắng
+            ColorSequenceKeypoint.new(0.60, Color2),
+            ColorSequenceKeypoint.new(0.80, Color1), -- Điểm sáng chạy
+            ColorSequenceKeypoint.new(1.00, Color2),
+        })
+        StrokeGradient.Rotation = 45
+        StrokeGradient.Parent = ElectricStroke
+
+        -- 2. TẠO HÀO QUANG (SHADOW/GLOW)
+        -- Tạo một khung mờ phát sáng đằng sau
+        local Glow = Instance.new("ImageLabel")
+        Glow.Name = "LightningGlow"
+        Glow.BackgroundTransparency = 1
+        Glow.Image = "rbxassetid://5028857472" -- Texture Gradient mềm mượt
+        Glow.ImageColor3 = Color1
+        Glow.ImageTransparency = 0.6
+        Glow.Size = UDim2.new(1, 100, 1, 100) -- Rộng hơn Window
+        Glow.Position = UDim2.new(0, -50, 0, -50)
+        Glow.ZIndex = 0 -- Nằm dưới cùng
+        Glow.Parent = RootFrame
+
+        -- 3. ANIMATION (Làm cho mọi thứ chuyển động)
+        local TweenService = game:GetService("TweenService")
+        local RunService = game:GetService("RunService")
+
+        -- A. Xoay Gradient Viền (Tạo cảm giác điện chạy)
+        RunService.RenderStepped:Connect(function()
+            if StrokeGradient.Parent then
+                -- Tốc độ xoay (càng cao càng nhanh)
+                StrokeGradient.Rotation = (tick() * 100) % 360 
+            end
+        end)
+
+        -- B. Hiệu ứng "Thở" cho Hào Quang (Pulsing Glow)
+        local GlowTweenInfo = TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+        local GlowTween = TweenService:Create(Glow, GlowTweenInfo, {ImageTransparency = 0.8, Size = UDim2.new(1, 120, 1, 120), Position = UDim2.new(0, -60, 0, -60)})
+        GlowTween:Play()
+    end
+
+    -- Kích hoạt hiệu ứng
+    AddLightningEffects(Window)
+
+    -- ========================================================
+    -- [END] LIGHTNING THEME UPGRADES
+    -- ========================================================
 
     return Window
 end
