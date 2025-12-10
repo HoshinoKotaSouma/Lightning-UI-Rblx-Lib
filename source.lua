@@ -9252,83 +9252,159 @@ Library.CreateWindow = function(self, Config)
 
 
 
-	local Window = Components.Window({
+local Window = Components.Window({
+        Parent = GUI,
+        Size = Config.Size,
+        Title = Config.Title,
+        Icon = Icon,
+        Image = Config.Image,
+        BackgroundImage = Config.BackgroundImage,
+        BackgroundTransparency = Config.BackgroundTransparency,
+        BackgroundImageTransparency = Config.BackgroundImageTransparency,
+        SubTitle = Config.SubTitle,
+        TabWidth = Config.TabWidth,
+        DropdownsOutsideWindow = Config.DropdownsOutsideWindow,
+        Search = Config.Search,
+        UserInfoTitle = Config.UserInfoTitle,
+        UserInfo = Config.UserInfo,
+        UserInfoTop = Config.UserInfoTop,
+        UserInfoSubtitle = Config.UserInfoSubtitle,
+        UserInfoSubtitleColor = Config.UserInfoSubtitleColor,
+    })
 
+    Library.Window = Window
+    table.insert(Library.Windows, Window)
+    InterfaceManager:SetTheme(Config.Theme)
+    Library:SetTheme(Config.Theme)
 
-		Parent = GUI,
+    -- ========================================================
+    -- [START] PROFILE CARD EXTENSION (Gắn bên trái GUI)
+    -- ========================================================
+    local function CreateSideProfile(WindowObj)
+        -- Kiểm tra xem Window có Root không (Fluent thường dùng .Root hoặc .MainFrame)
+        local RootFrame = WindowObj.Root 
+        if not RootFrame then return end -- An toàn nếu không tìm thấy Root
 
+        -- 1. Tạo Khung Thẻ (Card Frame)
+        local ProfileCard = Instance.new("Frame")
+        ProfileCard.Name = "SideProfileCard"
+        ProfileCard.Size = UDim2.fromOffset(200, 350) -- Kích thước thẻ
+        ProfileCard.Position = UDim2.new(0, -215, 0, 0) -- Vị trí bên trái
+        ProfileCard.BackgroundColor3 = Color3.fromRGB(25, 25, 25) 
+        ProfileCard.BorderSizePixel = 0
+        ProfileCard.BackgroundTransparency = 0.1
+        ProfileCard.Parent = RootFrame -- Gắn vào GUI chính
+        
+        -- Bo góc
+        local UICorner = Instance.new("UICorner")
+        UICorner.CornerRadius = UDim.new(0, 8)
+        UICorner.Parent = ProfileCard
+        
+        -- Viền (Stroke)
+        local UIStroke = Instance.new("UIStroke")
+        UIStroke.Color = Color3.fromRGB(60, 60, 60)
+        UIStroke.Thickness = 1
+        UIStroke.Parent = ProfileCard
 
-		Size = Config.Size,
+        -- 2. ViewportFrame (Avatar 3D)
+        local Viewport = Instance.new("ViewportFrame")
+        Viewport.Size = UDim2.new(1, 0, 0.7, 0)
+        Viewport.Position = UDim2.new(0, 0, 0, 0)
+        Viewport.BackgroundTransparency = 1
+        Viewport.Parent = ProfileCard
+        
+        -- Camera
+        local Camera = Instance.new("Camera")
+        Camera.FieldOfView = 60
+        Viewport.CurrentCamera = Camera
+        Camera.Parent = Viewport
+        
+        -- Clone Character
+        local Player = game.Players.LocalPlayer
+        local Character = Player.Character or Player.CharacterAdded:Wait()
+        Character.Archivable = true 
+        
+        local CloneChar = Character:Clone()
+        CloneChar.Parent = Viewport
+        
+        -- Dọn rác trong clone
+        for _, v in pairs(CloneChar:GetDescendants()) do
+            if v:IsA("Script") or v:IsA("LocalScript") or v:IsA("Sound") then
+                v:Destroy()
+            end
+        end
+        
+        -- Căn chỉnh Camera & Xoay 3D
+        local HRP = CloneChar:WaitForChild("HumanoidRootPart")
+        Camera.CFrame = CFrame.new(HRP.Position + Vector3.new(0, 1.5, 5), HRP.Position) 
+        
+        local RunService = game:GetService("RunService")
+        local Rotation = 0
+        
+        -- Kết nối vòng lặp xoay
+        local SpinConnection
+        SpinConnection = RunService.RenderStepped:Connect(function()
+            if CloneChar and CloneChar.Parent and ProfileCard.Parent then
+                Rotation = Rotation + 0.5 
+                if CloneChar.PrimaryPart then
+                      CloneChar:SetPrimaryPartCFrame(CFrame.new(HRP.Position) * CFrame.Angles(0, math.rad(Rotation), 0))
+                end
+            else
+                SpinConnection:Disconnect()
+            end
+        end)
 
+        -- 3. Phần thông tin (Tên) bên dưới
+        local InfoSection = Instance.new("Frame")
+        InfoSection.Size = UDim2.new(1, 0, 0.3, 0)
+        InfoSection.Position = UDim2.new(0, 0, 0.7, 0)
+        InfoSection.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        InfoSection.BorderSizePixel = 0
+        InfoSection.Parent = ProfileCard
+        
+        local InfoCorner = Instance.new("UICorner")
+        InfoCorner.CornerRadius = UDim.new(0, 8)
+        InfoCorner.Parent = InfoSection
+        
+        local HideCorner = Instance.new("Frame")
+        HideCorner.Size = UDim2.new(1, 0, 0.2, 0)
+        HideCorner.Position = UDim2.new(0, 0, 0, 0)
+        HideCorner.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+        HideCorner.BorderSizePixel = 0
+        HideCorner.Parent = InfoSection
 
-		Title = Config.Title,
+        -- Tên hiển thị
+        local DisplayName = Instance.new("TextLabel")
+        DisplayName.Size = UDim2.new(1, 0, 0.5, 0)
+        DisplayName.Position = UDim2.new(0, 0, 0.1, 0)
+        DisplayName.BackgroundTransparency = 1
+        DisplayName.Text = Player.DisplayName
+        DisplayName.TextColor3 = Color3.fromRGB(255, 255, 255)
+        DisplayName.TextSize = 16
+        DisplayName.Font = Enum.Font.GothamBold
+        DisplayName.Parent = InfoSection
+        
+        -- Username
+        local Username = Instance.new("TextLabel")
+        Username.Size = UDim2.new(1, 0, 0.4, 0)
+        Username.Position = UDim2.new(0, 0, 0.5, 0)
+        Username.BackgroundTransparency = 1
+        Username.Text = "@" .. Player.Name
+        Username.TextColor3 = Color3.fromRGB(180, 180, 180)
+        Username.TextSize = 13
+        Username.Font = Enum.Font.Gotham
+        Username.Parent = InfoSection
+        
+        return ProfileCard
+    end
 
+    -- Kích hoạt hàm tạo Profile
+    CreateSideProfile(Window)
+    -- ========================================================
+    -- [END] PROFILE CARD EXTENSION
+    -- ========================================================
 
-		Icon = Icon,
-
-
-		Image = Config.Image,
-
-
-		BackgroundImage = Config.BackgroundImage,
-
-
-		BackgroundTransparency = Config.BackgroundTransparency,
-
-
-		BackgroundImageTransparency = Config.BackgroundImageTransparency,
-
-
-		SubTitle = Config.SubTitle,
-
-
-		TabWidth = Config.TabWidth,
-
-		DropdownsOutsideWindow = Config.DropdownsOutsideWindow,
-
-
-		Search = Config.Search,
-
-
-		UserInfoTitle = Config.UserInfoTitle,
-
-
-		UserInfo = Config.UserInfo,
-
-
-		UserInfoTop = Config.UserInfoTop,
-
-
-		UserInfoSubtitle = Config.UserInfoSubtitle,
-
-
-		UserInfoSubtitleColor = Config.UserInfoSubtitleColor,
-
-
-	})
-
-
-
-
-
-	Library.Window = Window
-
-
-	table.insert(Library.Windows, Window)
-
-
-	InterfaceManager:SetTheme(Config.Theme)
-
-
-	Library:SetTheme(Config.Theme)
-
-
-
-
-
-	return Window
-
-
+    return Window
 end
 
 
